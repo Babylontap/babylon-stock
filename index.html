@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Babylon Stock</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#121B22">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Babylon Stock">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  html, body { margin: 0; height: 100%; background: #121B22; overflow: hidden; }
+  iframe { position: fixed; inset: 0; width: 100%; height: 100%; height: 100dvh; border: 0; background: #121B22; }
+  #espera { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+    color: #FAB504; font-family: system-ui, sans-serif; font-size: 18px; transition: opacity .3s; }
+  #espera img { width: 120px; height: 120px; border-radius: 50%; }
+  #espera.listo { opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="espera"><img src="icono-192.png" alt="Babylon Tap Room"><span>Cargando…</span></div>
+<script>
+  // ↓↓↓ ÚNICA LÍNEA PARA COMPLETAR: pegá entre las comillas el link de tu sistema (el que termina en /exec) ↓↓↓
+  var LINK_DEL_SISTEMA = 'PEGÁ_ACÁ_EL_LINK';
+  // ↑↑↑ ------------------------------------------------------------------------------------------------ ↑↑↑
+
+  if (LINK_DEL_SISTEMA.indexOf('https://') !== 0) {
+    document.getElementById('espera').innerHTML = '<span style="max-width:300px;text-align:center;line-height:1.5">Falta pegar el link del sistema en index.html (la línea LINK_DEL_SISTEMA).</span>';
+  } else {
+    var f = document.createElement('iframe');
+    f.src = LINK_DEL_SISTEMA;
+    f.title = 'Babylon · Sistema de Stock';
+    f.allow = 'clipboard-write';
+    f.onload = function () { document.getElementById('espera').className = 'listo'; };
+    document.body.appendChild(f);
+  }
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
+</script>
+</body>
+</html>
